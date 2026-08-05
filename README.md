@@ -1,0 +1,1 @@
+[Фронт для чата](https://github.com/DarKsandr/go-chat-frontend)
