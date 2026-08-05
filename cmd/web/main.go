@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"os"
+	"slices"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -40,11 +41,12 @@ func main() {
 
 func GetMessageHandler(c *gin.Context) {
 	messages := []*pkg.Message{}
-	err := db.Scopes(pkg.Paginate(c.Request)).Find(&messages).Error
+	err := db.Scopes(pkg.Paginate(c.Request)).Order("id desc").Find(&messages).Error
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
+	slices.Reverse(messages)
 
 	c.JSON(http.StatusOK, messages)
 }
