@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"log"
+	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -31,6 +32,10 @@ var (
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
+	CheckOrigin: func(r *http.Request) bool {
+		//TODO url server
+		return true
+	},
 }
 
 // Client is a middleman between the websocket connection and the hub.

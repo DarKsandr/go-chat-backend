@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -19,6 +20,7 @@ func main() {
 	port := os.Getenv("PORT")
 
 	router := gin.Default()
+	router.Use(cors.Default()) //TODO url server
 
 	hub = newHub()
 	go hub.run()
