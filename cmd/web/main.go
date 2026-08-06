@@ -18,6 +18,10 @@ var db *gorm.DB
 func main() {
 	pkg.Init()
 
+	if os.Getenv("GIN_MODE") == "release" {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
 	port := os.Getenv("PORT")
 
 	router := gin.Default()
